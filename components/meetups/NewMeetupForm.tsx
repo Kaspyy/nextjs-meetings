@@ -2,9 +2,9 @@ import { useRef } from 'react';
 
 import Card from '../ui/Card';
 import classes from './NewMeetupForm.module.css';
-import MeetupData from '../../models/meetupdata';
+import Meetup from '../../models/meetup';
 
-function NewMeetupForm(props: { onAddMeetup: (meetup: MeetupData) => void }) {
+function NewMeetupForm(props: { onAddMeetup: (meetup: Meetup) => void }) {
   const titleInputRef: React.RefObject<HTMLInputElement> = useRef(null);
   const imageInputRef: React.RefObject<HTMLInputElement> = useRef(null);
   const addressInputRef: React.RefObject<HTMLInputElement> = useRef(null);

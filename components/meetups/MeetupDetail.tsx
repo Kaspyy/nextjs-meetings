@@ -16,6 +16,7 @@ function MeetupDetail(props: {
         height='50%'
         layout='responsive'
         objectFit='cover'
+        unoptimized={true}
       />
       <h1>{props.title}</h1>
       <address>{props.address}</address>

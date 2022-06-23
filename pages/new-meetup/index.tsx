@@ -1,9 +1,9 @@
 import NewMeetupForm from '../../components/meetups/NewMeetupForm';
-import MeetupData from '../../models/meetupdata';
+import Meetup from '../../models/meetup';
 
 function NewMeetupPage() {
-  function addMeetupHandler(enteredMeetupData: MeetupData) {
-    console.log(enteredMeetupData);
+  function addMeetupHandler(enteredMeetupData: Meetup) {
+    // TODO: Add meetup to the database
   }
 
   return <NewMeetupForm onAddMeetup={addMeetupHandler} />;

@@ -2,17 +2,13 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Card from '../ui/Card';
 import classes from './MeetupItem.module.css';
+import Meetup from '../../models/meetup';
 
-function MeetupItem(props: {
-  id: string;
-  title: string;
-  address: string;
-  image: string;
-}) {
+function MeetupItem(props: { meetup: Meetup }) {
   const router = useRouter();
 
   function showDetailsHandler() {
-    router.push('/' + props.id);
+    router.push('/' + props.meetup.id);
   }
 
   return (
@@ -20,9 +16,9 @@ function MeetupItem(props: {
       <Card>
         <div className={classes.image}>
           <Image
-            loader={() => props.image}
-            src={props.image}
-            alt={props.title}
+            loader={() => props.meetup.image}
+            src={props.meetup.image}
+            alt={props.meetup.title}
             width='100%'
             height='50%'
             layout='responsive'
@@ -30,8 +26,8 @@ function MeetupItem(props: {
           />
         </div>
         <div className={classes.content}>
-          <h3>{props.title}</h3>
-          <address>{props.address}</address>
+          <h3>{props.meetup.title}</h3>
+          <address>{props.meetup.address}</address>
         </div>
         <div className={classes.actions}>
           <button onClick={showDetailsHandler}>Show details</button>
