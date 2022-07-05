@@ -19,6 +19,7 @@
 .DS_Store
 *.pem
 .vscode
+.idea
 
 # debug
 npm-debug.log*
@@ -34,3 +35,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# credentials
+credentials.json

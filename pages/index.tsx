@@ -1,33 +1,36 @@
+import Head from 'next/head';
 import MeetupList from '../components/meetups/MeetupList';
 import Meetup from '../models/meetup';
-
-const DUMMY_MEETUPS = [
-  {
-    id: 'm1',
-    title: 'Meetup in Paris',
-    address: '	18 Rue du Bac, Paris',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg',
-    description: 'First meetup in Paris',
-  },
-  {
-    id: 'm2',
-    title: 'Meetup in London',
-    address: '10 Downing Street, London',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/9/99/London-BigBen_%2827038026452%29.jpg',
-    description: 'First meetup in London',
-  },
-];
+import { dbConnect } from '../lib/database';
 
 function HomePage(props: { meetups: Meetup[] }) {
-  return <MeetupList meetups={props.meetups} />;
+  return (
+    <>
+      <Head>
+        <title>Next Meetups</title>
+      </Head>
+      <MeetupList meetups={props.meetups} />;
+    </>
+  );
 }
 
 export async function getStaticProps() {
+  const client = await dbConnect();
+
+  const db = client.db('meetups');
+
+  const meetupsCollection = db.collection('meetups');
+
+  const meetups = await meetupsCollection.find().toArray();
+
   return {
     props: {
-      meetups: DUMMY_MEETUPS,
+      meetups: meetups.map(meetup => ({
+        title: meetup.title,
+        address: meetup.address,
+        image: meetup.image,
+        id: meetup._id.toString(),
+      })),
     },
     revalidate: 1,
   };

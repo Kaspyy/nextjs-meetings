@@ -1,10 +1,6 @@
-import { MongoClient } from 'mongodb';
 import { NextApiRequest, NextApiResponse } from 'next';
 import Meetup from '../../models/meetup';
-
-// enter your mongoDB username and password here
-const username = '';
-const password = '';
+import { dbConnect, dbDisconnect } from '../../lib/database';
 
 async function handler(req: NextApiRequest, res: NextApiResponse<Meetup>) {
   if (req.method === 'POST') {
@@ -12,16 +8,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse<Meetup>) {
 
     const { title, address, description, image } = data;
 
-    const client = await MongoClient.connect(
-      `mongodb+srv://${username}:${password}@cluster0.xrvsaqk.mongodb.net/?retryWrites=true&w=majority`
-    );
-    const db = client.db();
+    const client = await dbConnect();
+
+    const db = client.db('meetups');
 
     const meetupsCollection = db.collection('meetups');
 
-    const result = meetupsCollection.insertOne(data);
+    const result = await meetupsCollection.insertOne(data);
 
-    client.close();
+    dbDisconnect(client);
   }
 }
 
