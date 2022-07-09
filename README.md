@@ -1,4 +1,4 @@
-## NextJS App
+## NextJS Meetings
 
 This is Next.js practice project.
 
