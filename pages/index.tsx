@@ -9,7 +9,7 @@ function HomePage(props: { meetups: Meetup[] }) {
       <Head>
         <title>Next Meetups</title>
       </Head>
-      <MeetupList meetups={props.meetups} />;
+      <MeetupList meetups={props.meetups} />
     </>
   );
 }
